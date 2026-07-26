@@ -1,0 +1,97 @@
+# PeckNSend
+
+PeckNSend is a local multiplayer Unity game prototype where players control birds, collect mail, 
+and deliver it to matching mailboxes for points. The project was built as a team game project, 
+with my work focused on scene flow, UI/game-state architecture, player session management, match scoring, and development tooling.
+
+## My Contributions
+
+My main contributions are in:
+
+- `FSM/`
+- `Models/`
+- `Presenters/`
+- `Debugging/`
+- `Singleton/`
+
+I did NOT create the code in:
+
+- `Background/`
+- `Mail/`
+- `MailboxLogic/`
+- `Player/`
+- `Scripts/` (the loose scripts)
+
+## What I Built
+
+I implemented the core application flow using finite state machines and a model/presenter structure. 
+The goal was to keep scene transitions, UI state, and match state organized instead of placing all logic directly inside Unity UI scripts.
+
+Key systems I worked on include:
+
+- Scene flow between boot, main menu, player join, play, and result scenes
+- Main menu screen state management
+- Player join and ready-up tracking
+- Persistent game session data
+- Match statistics and score reporting
+- Result screen presentation
+- Direct-entry scene bootstrappers for faster Unity playtesting
+
+## Notable Systems
+
+### Scene Flow System
+
+- `Presenters/SceneSwitchSystem/SceneManagerPresenter.cs`
+- `Models/SceneSwithSystem/SceneManagerModel.cs`
+- `Models/SceneSwithSystem/SceneManagerFSM.cs`
+- `Models/SceneSwithSystem/SceneBaseState.cs`
+
+This system controls the main flow between boot, main menu, player join, play, and result scenes. 
+I used a finite state machine so scene transitions are requested through clear state-specific methods instead of being triggered directly from scattered UI scripts.
+
+### Persistent Game Session System
+
+- `Presenters/GameSessionSystem/GameSessionPresenter.cs`
+- `Models/GameSessionSystem/GameSessionModel.cs`
+- `Models/PlayerJoinScene/JoinedPlayerData.cs`
+- `Models/PlayScene/MatchStatsModel.cs`
+- `Models/PlayScene/PlayerMatchStatsModel.cs`
+
+This system stores player and match data across scene changes. It keeps track of joined players, 
+controller/device information, bird selections, and delivered mail scores so gameplay and result scenes can share the same session data.
+
+### Direct Scene Testing Tools
+
+- `Debugging/MainMenuSceneDirectEntryBootstrapper.cs`
+- `Debugging/PlayerJoinSceneDirectEntryBootstrapper.cs`
+- `Debugging/PlaySceneDirectEntryBootstrapper.cs`
+- `Debugging/ResultSceneDirectEntryBootstrapper.cs`
+
+These bootstrappers make individual Unity scenes easier to test by creating required persistent services and debug session data when entering a scene directly.
+
+## Current Status
+
+This repository is a portfolio/code sample from a Unity game project, not a polished production release. 
+Some features, such as pause handling, were still unfinished at the time this code was shared.
+
+## What I Learned
+
+This project helped me practice:
+
+- Structuring Unity code beyond single-purpose MonoBehaviours
+- Separating UI presentation from game state
+- Managing persistent data across scenes
+- Using finite state machines for menus and game flow
+- Supporting multiplayer player join and ready-up workflows
+- Building development tools to speed up testing
+
+## Future Improvements
+
+If I continued development, I would focus on:
+
+- Finishing or removing incomplete pause behavior
+- Adding more validation around Unity inspector references
+- Improving null-safety around scene and singleton dependencies
+- Renaming/refactoring older folders and comments for polish
+- Adding automated tests for state transitions, ready-up logic, and scoring
+- Documenting scene setup and required Unity packages
