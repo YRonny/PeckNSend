@@ -2,11 +2,11 @@
 
 PeckNSend is a local multiplayer Unity game prototype where players control birds, collect mail, 
 and deliver it to matching mailboxes for points. The project was built as a team game project, 
-with my work focused on scene flow, UI/game-state architecture, player session management, match scoring, and development tooling.
+with my work focused on scene flow, UI/game-state architecture, player session management and match scoring.
 
 ## My Contributions
 
-My main contributions are in:
+My contributions are in:
 
 - `FSM/`
 - `Models/`
@@ -14,13 +14,13 @@ My main contributions are in:
 - `Debugging/`
 - `Singleton/`
 
-I did NOT create the code in:
+I did not create the code in:
 
 - `Background/`
 - `Mail/`
 - `MailboxLogic/`
 - `Player/`
-- `Scripts/` (the loose scripts)
+- `MailShooter.cs`
 
 ## What I Built
 
@@ -89,9 +89,9 @@ This project helped me practice:
 
 If I continued development, I would focus on:
 
-- Finishing or removing incomplete pause behavior
-- Adding more validation around Unity inspector references
-- Improving null-safety around scene and singleton dependencies
-- Renaming/refactoring older folders and comments for polish
+- Finishing incomplete behavior (pause,...)
+- Improve null checks and validation so missing dependencies are easier to diagnose.
+- Renaming/refactoring older folders and comments for polish (TODO,...)
 - Adding automated tests for state transitions, ready-up logic, and scoring
-- Documenting scene setup and required Unity packages
+- Documenting scene setup and required Unity packages. (How to use)
+- Improve scene transitions with asynchronous scene loading and a persistent transition service. 
