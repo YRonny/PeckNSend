@@ -1,97 +1,103 @@
 # PeckNSend
 
-PeckNSend is a local multiplayer Unity game prototype where players control birds, collect mail, 
-and deliver it to matching mailboxes for points. The project was built as a team game project, 
-with my work focused on scene flow, UI/game-state architecture, player session management and match scoring.
+PeckNSend is a local multiplayer Unity game prototype where players control birds, collect mail, and deliver it to matching mailboxes for points.
 
 ## My Contributions
 
-My contributions are in:
+The following folders contain the systems and scripts I worked on:
 
-- `FSM/`
-- `Models/`
-- `Presenters/`
-- `Debugging/`
-- `Singleton/`
+* `FSM/`
+* `Models/`
+* `Presenters/`
+* `Debugging/`
+* `Singleton/`
 
-I did not create the code in:
+I did **not** create the code in:
 
-- `Background/`
-- `Mail/`
-- `MailboxLogic/`
-- `Player/`
-- `MailShooter.cs`
+* `Background/`
+* `Mail/`
+* `MailboxLogic/`
+* `Player/`
+* `MailShooter.cs`
 
-## What I Built
+## Architecture & Design Decisions
 
-I implemented the core application flow using finite state machines and a model/presenter structure. 
-The goal was to keep scene transitions, UI state, and match state organized instead of placing all logic directly inside Unity UI scripts.
+The main goal of the project was to create a fun and functional game within the available development time, rather than to build an extensive production architecture.
+However, I tried to use established programming patterns to keep systems understandable and maintainable.
 
-Key systems I worked on include:
+I implemented much of the application's overall flow using **finite state machines** and a **MVP structure**.
 
-- Scene flow between boot, main menu, player join, play, and result scenes
-- Main menu screen state management
-- Player join and ready-up tracking
-- Persistent game session data
-- Match statistics and score reporting
-- Result screen presentation
-- Direct-entry scene bootstrappers for faster Unity playtesting
+The main systems I worked on include:
+
+* Scene flow between boot, main menu, player join, play, and result scenes
+* Main menu screen state management
+* Player joining and ready-up tracking
+* Persistent player and game-session data
+* Match statistics and score reporting
+* Result screen presentation
+* Direct-entry scene bootstrappers for faster Unity playtesting
 
 ## Notable Systems
 
 ### Scene Flow System
 
-- `Presenters/SceneSwitchSystem/SceneManagerPresenter.cs`
-- `Models/SceneSwithSystem/SceneManagerModel.cs`
-- `Models/SceneSwithSystem/SceneManagerFSM.cs`
-- `Models/SceneSwithSystem/SceneBaseState.cs`
+* `Presenters/SceneSwitchSystem/SceneManagerPresenter.cs`
+* `Models/SceneSwithSystem/SceneManagerModel.cs`
+* `Models/SceneSwithSystem/SceneManagerFSM.cs`
+* `Models/SceneSwithSystem/SceneBaseState.cs`
 
 This system controls the main flow between boot, main menu, player join, play, and result scenes. 
 I used a finite state machine so scene transitions are requested through clear state-specific methods instead of being triggered directly from scattered UI scripts.
 
 ### Persistent Game Session System
 
-- `Presenters/GameSessionSystem/GameSessionPresenter.cs`
-- `Models/GameSessionSystem/GameSessionModel.cs`
-- `Models/PlayerJoinScene/JoinedPlayerData.cs`
-- `Models/PlayScene/MatchStatsModel.cs`
-- `Models/PlayScene/PlayerMatchStatsModel.cs`
+* `Presenters/GameSessionSystem/GameSessionPresenter.cs`
+* `Models/GameSessionSystem/GameSessionModel.cs`
+* `Models/PlayerJoinScene/JoinedPlayerData.cs`
+* `Models/PlayScene/MatchStatsModel.cs`
+* `Models/PlayScene/PlayerMatchStatsModel.cs`
 
-This system stores player and match data across scene changes. It keeps track of joined players, 
-controller/device information, bird selections, and delivered mail scores so gameplay and result scenes can share the same session data.
+This system stores player and match data across scene changes. 
+It keeps track of joined players, controller/device information, bird selections, and delivered mail scores so gameplay and result scenes can share the same session data.
 
 ### Direct Scene Testing Tools
 
-- `Debugging/MainMenuSceneDirectEntryBootstrapper.cs`
-- `Debugging/PlayerJoinSceneDirectEntryBootstrapper.cs`
-- `Debugging/PlaySceneDirectEntryBootstrapper.cs`
-- `Debugging/ResultSceneDirectEntryBootstrapper.cs`
+* `Debugging/MainMenuSceneDirectEntryBootstrapper.cs`
+* `Debugging/PlayerJoinSceneDirectEntryBootstrapper.cs`
+* `Debugging/PlaySceneDirectEntryBootstrapper.cs`
+* `Debugging/ResultSceneDirectEntryBootstrapper.cs`
 
 These bootstrappers make individual Unity scenes easier to test by creating required persistent services and debug session data when entering a scene directly.
 
 ## Current Status
 
-This repository is a portfolio/code sample from a Unity game project, not a polished production release. 
-Some features, such as pause handling, were still unfinished at the time this code was shared.
+This repository is intended as a **portfolio and code sample** from a Unity game project rather than a polished production release.
+The game itself was developed under project deadlines, and some features were still unfinished when development ended, including pause handling.
+The repository therefore reflects both completed systems and areas I would improve if development continued.
 
 ## What I Learned
 
-This project helped me practice:
+This project gave me practical experience with:
 
-- Structuring Unity code beyond single-purpose MonoBehaviours
-- Separating UI presentation from game state
-- Managing persistent data across scenes
-- Using finite state machines for menus and game flow
-- Supporting multiplayer player join and ready-up workflows
-- Building development tools to speed up testing
+* Structuring Unity projects beyond single-purpose `MonoBehaviour` scripts
+* Separating application state from UI presentation
+* Using finite state machines to manage application and menu flow
+* Managing persistent data across Unity scenes
+* Supporting multiplayer player joining and ready-up workflows
+* Designing systems that need to communicate across multiple scenes
+* Building development tools to reduce iteration time
+* Working within an existing codebase shared by multiple programmers
+
+It also gave me more experience deciding **when additional architecture is useful and when a simpler solution is sufficient**.
 
 ## Future Improvements
 
 If I continued development, I would focus on:
 
-- Finishing incomplete behavior (pause,...)
-- Improve null checks and validation so missing dependencies are easier to diagnose.
-- Renaming/refactoring older folders and comments for polish (TODO,...)
-- Adding automated tests for state transitions, ready-up logic, and scoring
-- Documenting scene setup and required Unity packages. (How to use)
-- Improve scene transitions with asynchronous scene loading and a persistent transition service. 
+* Finishing incomplete behaviour, such as pause handling
+* Improving null checks and validation so missing dependencies are easier to diagnose
+* Refactoring older folder names, class names, and comments for consistency
+* Removing remaining development `TODO` comments
+* Adding automated tests for state transitions, ready-up logic, and scoring
+* Documenting scene setup and required Unity packages (how to use)
+* Improving scene transitions with asynchronous scene loading and a persistent transition service
